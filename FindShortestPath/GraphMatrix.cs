@@ -8,25 +8,17 @@ namespace FindShortestPath
 {
     public class GraphMatrix<T> : IGraphNonWeighted<T> where T : IEquatable<T>
     {
-        // fundament: dwuwymiarowa symetryczna tablica sąsiadów
-        // oraz mapowanie etykiet wierzchołków na indeksy w tablicy i odwrotnie
         private readonly int[,] matrix;
         private readonly Dictionary<T, int> labelToIndex = new(); // C# < 12
         private readonly Dictionary<int, T> indexToLabel = new(); // C# 12+
 
-        // właściwości i metody możliwe do zaimplementowania
-        // wyłącznie na podstawie wiedzy o wewnętrznej strukturze grafu
         public int NoOfVertices => matrix.GetLength(0);
         public bool ContainsVertex(T label) => labelToIndex.ContainsKey(label);
         public IEnumerable<T> Vertices => labelToIndex.Keys;
         public bool ContainsEdge((T, T) edge) => matrix[labelToIndex[edge.Item1], labelToIndex[edge.Item2]] == 1;
 
-        // celowo nie implementowane dodawanie i usuwanie wierzchołków
         public void AddVertex(T vertex) => throw new NotImplementedException();
         public void RemoveVertex(T vertex) => throw new NotImplementedException();
-
-
-        // -------
 
         public GraphMatrix(IEnumerable<T> vertices)
         {
@@ -53,7 +45,6 @@ namespace FindShortestPath
             matrix[i, j] = matrix[j, i] = 1;
         }
 
-        // przeciążenie metody AddEdge dla krotki (T, T)
         public void AddEdge((T, T) edge) => AddEdge(edge.Item1, edge.Item2);
 
         public void RemoveEdge(T v1, T v2)
@@ -65,7 +56,6 @@ namespace FindShortestPath
             matrix[i, j] = matrix[j, i] = 0;
         }
 
-        // przeciążenie metody RemoveEdge dla krotki (T, T)
         public void RemoveEdge((T, T) edge) => RemoveEdge(edge.Item1, edge.Item2);
 
         public IEnumerable<T> Neighbours(T v)
@@ -86,7 +76,6 @@ namespace FindShortestPath
 
         public int NoOfEdges => Edges.Count();
 
-        // dostęp, tylko do odczytu, do wartości w macierzy sąsiedztwa
         public int this[T v1, T v2] =>
             (ContainsVertex(v1) && ContainsVertex(v2)) ?
                 matrix[labelToIndex[v1], labelToIndex[v2]]
