@@ -8,17 +8,17 @@ namespace FindShortestPath
 {
     public interface IGraphNonWeighted<T>
     {
-        int NoOfVertices { get; } // liczba wierzchołków
-        int NoOfEdges { get; } // liczba krawędzi
-        bool ContainsVertex(T vertex); // sprawdza, czy wierzchołek jest w grafie
-        bool ContainsEdge((T, T) edge); // sprawdza, czy krawędź jest w grafie
-        IEnumerable<(T, T)> Edges { get; } // zwraca wszystkie krawędzie grafu
-        IEnumerable<T> Vertices { get; } // zwraca wszystkie wierzchołki grafu
-        IEnumerable<T> Neighbours(T vertex); // zwraca listę sąsiadów wierzchołka
+        int NoOfVertices { get; } 
+        int NoOfEdges { get; } 
+        bool ContainsVertex(T vertex); 
+        bool ContainsEdge((T, T) edge); 
+        IEnumerable<(T, T)> Edges { get; } 
+        IEnumerable<T> Vertices { get; } 
+        IEnumerable<T> Neighbours(T vertex); 
 
-        void AddVertex(T vertex); // dodaje wierzchołek do grafu
-        void RemoveVertex(T vertex); // usuwa wierzchołek z grafu
-        void AddEdge((T, T) edge); // dodaje krawędź do grafu
-        void RemoveEdge((T, T) edge); // usuwa krawędź z grafu
+        void AddVertex(T vertex);
+        void RemoveVertex(T vertex); 
+        void AddEdge((T, T) edge); 
+        void RemoveEdge((T, T) edge); 
     }
 }
